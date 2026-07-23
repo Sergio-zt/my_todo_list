@@ -1,3 +1,6 @@
 from django.contrib import admin
+from todolist.models import Task, Tag
 
-# Register your models here.
+
+admin.site.register(Tag)
+admin.site.register(Task)
