@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1>TODO list</h1>
+        <a href="{% url "todolist:task-create" %}" class="btn btn-primary">Add task</a>
+    </div>
+
+    <div>
+        {% for task in tasks %}
+            <div class="d-flex justify-content-between align-items-center mb-4 pb-3 border-bottom">
+                
+                <div>
+                    <h5 class="mb-2 fw-bold">
+                        {{ task.content }}
+                        {% if task.is_done %}
+                            <span class="text-success ms-2">Done</span>
+                        {% else %}
+                            <span class="text-danger ms-2">Not done</span>
+                        {% endif %}
+                    </h5>
+                    
+                    <p class="text-muted mb-2" style="font-size: 0.9em;">
+                        Created: {{ task.created_at|date:"F d, Y, P" }}
+                        {% if task.deadline %}
+                            <span class="text-danger ms-2 fw-bold">Deadline: {{ task.deadline|date:"F d, Y, P" }}</span>
+                        {% endif %}
+                    </p>
+                    
+                    <p class="text-muted mb-0" style="font-size: 0.9em;">
+                        Tags: 
+                        {% for tag in task.tags.all %}
+                            {{ tag.name }}{% if not forloop.last %}, {% endif %}
+                        {% empty %}
+                            none
+                        {% endfor %}
+                        
+                        <a href="{% url "todolist:task-update" task.pk %}" class="text-decoration-none ms-2">Update</a>
+                        <a href="{% url "todolist:task-delete" task.pk %}" class="text-decoration-none ms-1">Delete</a>
+                    </p>
+                </div>
+                
+                <div>
+                    <form action="{% url "todolist:task-toggle" task.pk %}" method="post" class="m-0">
+                        {% csrf_token %}
+                        {% if task.is_done %}
+                            <button type="submit" class="btn btn-secondary px-4">Undo</button>
+                        {% else %}
+                            <button type="submit" class="btn btn-success px-3">Complete</button>
+                        {% endif %}
+                    </form>
+                </div>
+
+            </div>
+        {% empty %}
+            <p>No tasks yet.</p>
+        {% endfor %}
+    </div>
+{% endblock %}

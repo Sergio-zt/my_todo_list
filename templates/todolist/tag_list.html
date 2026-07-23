@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1>Tags</h1>
+        <a href="{% url 'todolist:tag-create' %}" class="btn btn-primary">Add tag</a>
+    </div>
+
+    <ul class="list-group">
+        {% for tag in tags %}
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                {{ tag.name }}
+                <div>
+                    <a href="{% url 'todolist:tag-update' tag.pk %}" class="text-decoration-none me-2">Update</a>
+                    <a href="{% url 'todolist:tag-delete' tag.pk %}" class="text-decoration-none text-danger">Delete</a>
+                </div>
+            </li>
+        {% empty %}
+            <li class="list-group-item">No tags yet.</li>
+        {% endfor %}
+    </ul>
+{% endblock %}
