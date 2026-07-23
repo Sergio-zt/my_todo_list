@@ -1,7 +1,8 @@
 from django.shortcuts import redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.views import generic
-from .models import Task, Tag
+from todolist.models import Task, Tag
+from todolist.forms import TaskForm
 
 
 class TaskListView(generic.ListView):
@@ -15,14 +16,13 @@ class TaskListView(generic.ListView):
 
 class TaskCreateView(generic.CreateView):
     model = Task
-    fields = ["content", "deadline", "tags"]
-    success_url = reverse_lazy("todolist:task-list")
-
+    form_class = TaskForm  # Используем кастомную форму
+    success_url = reverse_lazy('todolist:task-list')
 
 class TaskUpdateView(generic.UpdateView):
     model = Task
-    fields = ["content", "deadline", "tags"]
-    success_url = reverse_lazy("todolist:task-list")
+    form_class = TaskForm  # Используем кастомную форму
+    success_url = reverse_lazy('todolist:task-list')
 
 
 class TaskDeleteView(generic.DeleteView):
