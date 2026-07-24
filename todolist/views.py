@@ -17,12 +17,12 @@ class TaskListView(generic.ListView):
 
 class TaskCreateView(generic.CreateView):
     model = Task
-    form_class = TaskForm  # Используем кастомную форму
+    form_class = TaskForm
     success_url = reverse_lazy('todolist:task-list')
 
 class TaskUpdateView(generic.UpdateView):
     model = Task
-    form_class = TaskForm  # Используем кастомную форму
+    form_class = TaskForm
     success_url = reverse_lazy('todolist:task-list')
 
 
