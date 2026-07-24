@@ -20,6 +20,7 @@ class TaskCreateView(generic.CreateView):
     form_class = TaskForm
     success_url = reverse_lazy('todolist:task-list')
 
+
 class TaskUpdateView(generic.UpdateView):
     model = Task
     form_class = TaskForm
@@ -29,7 +30,6 @@ class TaskUpdateView(generic.UpdateView):
 class TaskDeleteView(generic.DeleteView):
     model = Task
     success_url = reverse_lazy("todolist:task-list")
-
 
 
 class TaskToggleStatusView(View):
@@ -51,10 +51,12 @@ class TagCreateView(generic.CreateView):
     fields = ["name"]
     success_url = reverse_lazy("todolist:tag-list")
 
+
 class TagUpdateView(generic.UpdateView):
     model = Tag
     fields = ["name"]
     success_url = reverse_lazy("todolist:tag-list")
+
 
 class TagDeleteView(generic.DeleteView):
     model = Tag
